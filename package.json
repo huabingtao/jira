@@ -46,14 +46,9 @@
     "eslint-config-prettier": "^8.3.0",
     "git-format-staged": "^2.1.2",
     "husky": "^6.0.0",
-    "lint-staged": ">=10",
+    "lint-staged": "^11.0.0",
     "prettier": "2.3.1",
     "pretty-quick": "^3.1.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "*.{js,css,md,ts,tsx}": "prettier --write"
