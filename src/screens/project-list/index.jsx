@@ -1,20 +1,35 @@
 import { SearchPanel } from "./search-panel"
+import { useEffect, useState } from "react"
 import { List } from "./list"
+import { cleanObject } from "utils"
+import qs from 'qs'
+console.log('qs:',qs);
+
 export const ProjectListScreen = ()=>{
+    const apiUrl = process.env.REACT_APP_API_URL
     const [list, setList] = useState([])
-    useEffect((param,setParam)=>{
-        fetch('').then(async (res)=>{
+    const [users, setUsers] = useState([])
+    const [param, setParam] = useState({
+        name: '',
+        personId: ''
+    })
+    useEffect(()=>{
+        fetch(`${apiUrl}/projects?${qs.stringify(cleanObject(param))}`).then(async (res)=>{
             if(res.ok){
                 setList(await res.json())
             }
         })
     },[param])
-    const [param, setParam] = useState({
-        name: '',
-        personId: ''
-    })
+    useEffect(()=>{
+        fetch(`${apiUrl}/users`).then(async (res)=>{
+            if(res.ok){
+                setUsers(await res.json())
+            }
+        })
+    },[])
+
     return <div>
-        <SearchPanel param={param} setParam={setParam}></SearchPanel>
-        <List list={list}></List>
+        <SearchPanel users={users} param={param} setParam={setParam}></SearchPanel>
+        <List users={users} list={list}></List>
     </div>
 }

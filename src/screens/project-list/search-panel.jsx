@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react"
 
-export const SearchPanel = ()=>{
-
-    const [users, setUsers] = useState([])
+export const SearchPanel = ({users,param,setParam})=>{
 
     return <form action="">
         <div>
@@ -15,7 +13,7 @@ export const SearchPanel = ()=>{
             <select value={param.personId} onChange={event=>{
                 setParam({
                     ...param,
-                    persinId: event.target.value
+                    personId: event.target.value
                 })
             }}>
                 <option value="">负责人</option>
