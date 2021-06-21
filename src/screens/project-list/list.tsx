@@ -3,13 +3,17 @@ interface Project {
   personId: string;
   name: string;
 }
-export interface usersType {
+export interface User {
   id: string;
   name: string;
+  email: string;
+  title: string;
+  organization: string;
+  token: string;
 }
 interface ListProps {
   list: Project[];
-  users: usersType[];
+  users: User[];
 }
 export const List = ({ list, users }: ListProps) => {
   return (
