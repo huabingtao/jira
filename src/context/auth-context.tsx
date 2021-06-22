@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import * as auth from "auth-provider";
 import { User } from "screens/project-list/list";
 
@@ -18,7 +18,7 @@ export interface AuthForm {
   password: string;
 }
 
-export const AuthProvider = () => {
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
   const login = (form: AuthForm) => auth.login(form).then(setUser);
@@ -27,6 +27,7 @@ export const AuthProvider = () => {
 
   return (
     <AuthContext.Provider
+      children={children}
       value={{ user, login, register, logout }}
     ></AuthContext.Provider>
   );

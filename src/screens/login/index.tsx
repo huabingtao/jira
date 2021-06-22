@@ -1,18 +1,21 @@
+import { register } from "auth-provider";
+import { useAuth } from "context/auth-context";
 import React, { FormEvent } from "react";
 const apiUrl = process.env.REACT_APP_API_URL;
 export const Login = () => {
-  const login = (param: { username: string; password: string }) => {
-    fetch(`${apiUrl}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(param),
-    }).then(async (res) => {
-      if (res.ok) {
-      }
-    });
-  };
+  const { login, user } = useAuth();
+  // const login = (param: { username: string; password: string }) => {
+  //   fetch(`${apiUrl}/login`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(param),
+  //   }).then(async (res) => {
+  //     if (res.ok) {
+  //     }
+  //   });
+  // };
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const username = (event.currentTarget.elements[0] as HTMLInputElement)
@@ -23,6 +26,7 @@ export const Login = () => {
   };
   return (
     <div>
+      {user && <p>登录成功,用户名{user?.name}</p>}
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="username">用户名</label>

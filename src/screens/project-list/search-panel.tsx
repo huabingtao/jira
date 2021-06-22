@@ -1,9 +1,9 @@
 // import { useEffect, useState } from "react"
 import React from "react";
-import { usersType } from "./list";
+import { User } from "./list";
 
 interface SearchPanelProps {
-  users: usersType[];
+  users: User[];
   param: {
     name: string;
     personId: string;
