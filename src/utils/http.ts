@@ -1,4 +1,6 @@
 import * as auth from "auth-provider";
+import { useAuth } from "context/auth-context";
+import qs from "qs";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 interface Config extends RequestInit {
@@ -17,6 +19,11 @@ export const http = async (
     },
     ...customConfig,
   };
+  if (config.method.toUpperCase() === "GET") {
+    endpoint += `?${qs.stringify(data)}`;
+  } else {
+    config.body = JSON.stringify(data || {});
+  }
   return window
     .fetch(`${apiUrl}/${endpoint}`, config)
     .then(async (response) => {
@@ -27,9 +34,16 @@ export const http = async (
       }
       const data = response.json();
       if (response.ok) {
-        return Promise.resolve(data);
+        return data;
       } else {
         return Promise.reject(data);
       }
     });
+};
+
+export const useHttp = () => {
+  const { user } = useAuth();
+  // [endpoint, config]: Parameters<typeof http>
+  return (endPoint: string, config: Config = {}) =>
+    http(endPoint, { ...config, token: user?.token });
 };

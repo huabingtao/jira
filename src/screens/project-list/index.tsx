@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { List } from "./list";
 import { cleanObject, useDebounce, useMount } from "utils";
 import qs from "qs"; // qs 用来处理请求入参
+import { useHttp } from "utils/http";
 export const ProjectListScreen = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const [list, setList] = useState([]);
@@ -12,21 +13,25 @@ export const ProjectListScreen = () => {
     personId: "",
   });
   const debouncedParam = useDebounce(param, 300);
+  const client = useHttp();
+
   useEffect(() => {
-    fetch(
-      `${apiUrl}/projects?${qs.stringify(cleanObject(debouncedParam))}`
-    ).then(async (res) => {
-      if (res.ok) {
-        setList(await res.json());
-      }
-    });
+    client("projects", { data: cleanObject(debouncedParam) }).then(setList);
+    // fetch(
+    //   `${apiUrl}/projects?${qs.stringify(cleanObject(debouncedParam))}`
+    // ).then(async (res) => {
+    //   if (res.ok) {
+    //     setList(await res.json());
+    //   }
+    // });
   }, [debouncedParam]);
   useMount(() => {
-    fetch(`${apiUrl}/users`).then(async (res) => {
-      if (res.ok) {
-        setUsers(await res.json());
-      }
-    });
+    client("users").then(setUsers);
+    // fetch(`${apiUrl}/users`).then(async (res) => {
+    //   if (res.ok) {
+    //     setUsers(await res.json());
+    //   }
+    // });
   });
 
   return (
