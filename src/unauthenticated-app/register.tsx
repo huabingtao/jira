@@ -1,6 +1,7 @@
 import { Button, Form, Input } from "antd";
 import { useAuth } from "context/auth-context";
 import React, { FormEvent } from "react";
+import { LoingButton } from "unauthenticated-app";
 
 export const RegisterScreen = () => {
   const { register } = useAuth();
@@ -24,9 +25,9 @@ export const RegisterScreen = () => {
         </Form.Item>
         <div>
           <Form.Item>
-            <Button type={"primary"} htmlType={"submit"}>
+            <LoingButton type={"primary"} htmlType={"submit"}>
               注册
-            </Button>
+            </LoingButton>
           </Form.Item>
         </div>
       </Form>

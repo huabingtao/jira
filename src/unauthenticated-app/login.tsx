@@ -1,6 +1,7 @@
 import { Button, Form, Input } from "antd";
 import { useAuth } from "context/auth-context";
 import React from "react";
+import { LoingButton } from "unauthenticated-app";
 
 export const Login = () => {
   const { login, user } = useAuth();
@@ -11,7 +12,7 @@ export const Login = () => {
     <div>
       <Form onFinish={handleSubmit}>
         <Form.Item
-          name={"useranme"}
+          name={"username"}
           rules={[{ required: true, message: "请输入用户名" }]}
         >
           <Input placeholder="用户名" type="text" id={"username"} />
@@ -24,9 +25,9 @@ export const Login = () => {
         </Form.Item>
         <div>
           <Form.Item>
-            <Button type={"primary"} htmlType={"submit"}>
+            <LoingButton type={"primary"} htmlType={"submit"}>
               登录
-            </Button>
+            </LoingButton>
           </Form.Item>
         </div>
       </Form>
