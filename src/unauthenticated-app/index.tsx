@@ -15,7 +15,7 @@ export const UnauthenticatedApp = () => {
       <Header></Header>
       <Background></Background>
       <ShadowCard>
-        <Title>{isRegister ? "请登录" : "请注册"}</Title>
+        <Title>{isRegister ? "请注册" : "请登录"}</Title>
         {isRegister ? <RegisterScreen></RegisterScreen> : <Login></Login>}
         <Divider />
         <a
