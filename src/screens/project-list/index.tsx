@@ -4,6 +4,7 @@ import { List } from "./list";
 import { cleanObject, useDebounce, useMount } from "utils";
 import qs from "qs"; // qs 用来处理请求入参
 import { useHttp } from "utils/http";
+import styled from "@emotion/styled";
 export const ProjectListScreen = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const [list, setList] = useState([]);
@@ -35,13 +36,18 @@ export const ProjectListScreen = () => {
   });
 
   return (
-    <div>
+    <Container>
+      <h1>项目列表</h1>
       <SearchPanel
         users={users}
         param={param}
         setParam={setParam}
       ></SearchPanel>
       <List users={users} list={list}></List>
-    </div>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  padding: 3.2rem;
+`;
