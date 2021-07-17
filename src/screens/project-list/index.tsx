@@ -2,11 +2,9 @@ import { SearchPanel } from "./search-panel";
 import { useEffect, useState } from "react";
 import { List } from "./list";
 import { cleanObject, useDebounce, useMount } from "utils";
-import qs from "qs"; // qs 用来处理请求入参
 import { useHttp } from "utils/http";
 import styled from "@emotion/styled";
 export const ProjectListScreen = () => {
-  const apiUrl = process.env.REACT_APP_API_URL;
   const [list, setList] = useState([]);
   const [users, setUsers] = useState([]);
   const [param, setParam] = useState({
@@ -18,21 +16,10 @@ export const ProjectListScreen = () => {
 
   useEffect(() => {
     client("projects", { data: cleanObject(debouncedParam) }).then(setList);
-    // fetch(
-    //   `${apiUrl}/projects?${qs.stringify(cleanObject(debouncedParam))}`
-    // ).then(async (res) => {
-    //   if (res.ok) {
-    //     setList(await res.json());
-    //   }
-    // });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedParam]);
   useMount(() => {
     client("users").then(setUsers);
-    // fetch(`${apiUrl}/users`).then(async (res) => {
-    //   if (res.ok) {
-    //     setUsers(await res.json());
-    //   }
-    // });
   });
 
   return (

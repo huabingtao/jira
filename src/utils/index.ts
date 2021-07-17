@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 
 export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
-export const cleanObject = (object: Object) => {
+export const isVoid = (value: unknown) =>
+  value === "" || value === undefined || value === null;
+// TODO: 知识点对象类型
+export const cleanObject = (object: { [key: string]: unknown }) => {
   const result = { ...object };
   Object.keys(object).forEach((key) => {
-    // @ts-ignore
     const value = object[key];
-    if (isFalsy(value)) {
-      // @ts-ignore
+    if (isVoid(value)) {
       delete result[key];
     }
   });
@@ -18,6 +19,7 @@ export const useMount = (callBack: () => void) => {
   useEffect(() => {
     callBack();
   }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 };
 
 export const useDebounce = <V>(value: V, delay: number) => {
