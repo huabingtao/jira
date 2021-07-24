@@ -1,12 +1,21 @@
-import { Button, Form, Input } from "antd";
+import { Form, Input } from "antd";
 import { useAuth } from "context/auth-context";
 import React from "react";
 import { LoingButton } from "unauthenticated-app";
+import { useAsync } from "utils/use-async";
 
-export const Login = () => {
-  const { login, user } = useAuth();
-  const handleSubmit = (values: { username: string; password: string }) => {
-    login(values);
+export const Login = ({ onError }: { onError: (error: Error) => void }) => {
+  const { login } = useAuth();
+  const { run, isLoading } = useAsync(undefined, { throwOnError: true });
+  const handleSubmit = async (values: {
+    username: string;
+    password: string;
+  }) => {
+    try {
+      await run(login(values));
+    } catch (error: any) {
+      onError(error);
+    }
   };
   return (
     <div>
@@ -25,7 +34,11 @@ export const Login = () => {
         </Form.Item>
         <div>
           <Form.Item>
-            <LoingButton type={"primary"} htmlType={"submit"}>
+            <LoingButton
+              loading={isLoading}
+              type={"primary"}
+              htmlType={"submit"}
+            >
               登录
             </LoingButton>
           </Form.Item>
