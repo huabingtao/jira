@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
 export const isVoid = (value: unknown) =>
@@ -31,4 +31,22 @@ export const useDebounce = <V>(value: V, delay: number) => {
     return () => clearTimeout(timer);
   }, [value, delay]);
   return debunce;
+};
+/**
+ * 设置文档标题
+ *
+ */
+export const useDocumentTitle = (
+  title: string,
+  keepOnUnmount: boolean = true
+) => {
+  const oldTitle = useRef(document.title);
+  useEffect(() => {
+    document.title = title;
+    return () => {
+      if (!keepOnUnmount) {
+        document.title = oldTitle.current;
+      }
+    };
+  }, [title, keepOnUnmount]);
 };
