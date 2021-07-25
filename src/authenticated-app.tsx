@@ -7,8 +7,10 @@ import { ReactComponent as SoftwareLogo } from "assets/software-logo.svg";
 import { Button, Dropdown, Menu } from "antd";
 export const AuthenticatedApp = () => {
   const { logout, user } = useAuth();
+  const value: any = undefined;
   return (
     <Container>
+      {/* {value.name} */}
       <Header between={true}>
         <HeaderLeft gap={true}>
           <SoftwareLogo width="18rem" color="rgb(38,132,255)"></SoftwareLogo>
@@ -58,7 +60,6 @@ const Header = styled(Row)`
   z-index: 1;
 `;
 const HeaderLeft = styled(Row)``;
-const HeaderRight = styled.div``;
 const Main = styled.main`
   grid-area: main;
 `;

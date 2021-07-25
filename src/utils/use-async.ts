@@ -33,12 +33,15 @@ export const useAsync = <D>(
       error: null,
     });
 
-  const setError = (error: Error) =>
+  const setError = (error: Error) => {
+    //   console.log('1111:',error);
+
     setState({
       stat: "error",
       data: null,
       error,
     });
+  };
 
   // run 用来触发异步请求
   const run = (promise: Promise<D>) => {
@@ -53,7 +56,10 @@ export const useAsync = <D>(
       })
       .catch((error) => {
         // catch会消化异常 当捕获到异常就不往上抛出错误了，必须要reject一个异常出去
+        console.log("error:", error);
+
         setError(error);
+        return;
         if (config.throwOnError) return Promise.reject(error);
         return error;
       });
