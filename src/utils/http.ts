@@ -49,3 +49,5 @@ export const useHttp = () => {
   return (endPoint: string, config: Config = {}) =>
     http(endPoint, { ...config, token: user?.token });
 };
+
+export const resetRoute = () => (window.location.href = window.location.origin);
