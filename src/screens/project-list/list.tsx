@@ -21,6 +21,7 @@ export interface User {
 interface ListProps extends TableProps<Project> {
   users: User[];
 }
+
 export const List = ({ users, ...props }: ListProps) => {
   return (
     <Table
